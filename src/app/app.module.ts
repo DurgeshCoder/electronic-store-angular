@@ -14,18 +14,31 @@ import { FeatureComponent } from './components/pages/feature/feature.component';
 import { CustomNavbarComponent } from './components/common/custom-navbar/custom-navbar.component';
 import { AdminNavbarComponent } from './components/common/admin-navbar/admin-navbar.component';
 import { CategoriesComponent } from './components/common/categories/categories.component';
-
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
-  declarations: [AppComponent, HomeComponent, AboutComponent, LoginComponent, SignupComponent, FeatureComponent, CustomNavbarComponent, AdminNavbarComponent, CategoriesComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    AboutComponent,
+    LoginComponent,
+    SignupComponent,
+    FeatureComponent,
+    CustomNavbarComponent,
+    AdminNavbarComponent,
+    CategoriesComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     NgbModule,
     ToastrModule.forRoot({
-      positionClass: 'toast-bottom-center',
+      positionClass: 'toast-top-right',
       progressBar: true,
     }),
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
