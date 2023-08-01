@@ -16,6 +16,8 @@ import { AdminNavbarComponent } from './components/common/admin-navbar/admin-nav
 import { CategoriesComponent } from './components/common/categories/categories.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { authReducer } from './store/auth/auth.reducers';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +41,9 @@ import { HttpClientModule } from '@angular/common/http';
     }),
     FormsModule,
     HttpClientModule,
+    StoreModule.forRoot({
+      authReducer: authReducer,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
