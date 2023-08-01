@@ -1,4 +1,6 @@
 export const environment = {
-  apiUrl: 'http://localhost:9090',
   production: true,
+  apiUrl: 'http://api.lcwd.com',
+  paymentKey: 23525,
+  // production configurations
 };

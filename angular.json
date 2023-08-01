@@ -59,6 +59,20 @@
                   "with": "src/environments/environment.development.ts"
                 }
               ]
+            },
+            "stagging": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.stagging.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -71,6 +85,9 @@
             },
             "development": {
               "browserTarget": "angular-ecom:build:development"
+            },
+            "stagging": {
+              "browserTarget": "angular-ecom:build:stagging"
             }
           },
           "defaultConfiguration": "development"

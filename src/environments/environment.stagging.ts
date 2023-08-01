@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:9090',
+  apiUrl: 'http://learncodewithdurgesh.com',
   paymentKey: 23525,
 };
