@@ -1,1 +1,43 @@
-<p>Admin dashboard works!</p>
+<div class="main">
+  <div
+    class="sidebar bg-dark text-white"
+    [ngClass]="{ 'd-block': sidebarHidden }"
+  >
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a
+          class="nav-link active"
+          routerLink="/admin/home"
+          routerLinkActive="active"
+          >Home</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          routerLink="/admin/add-product"
+          routerLinkActive="active"
+          >Add Product</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">View Products</a>
+        <a class="nav-link" href="#">Add Categories</a>
+        <a class="nav-link" href="#">View Categories</a>
+        <a class="nav-link" href="#">All Orders</a>
+        <a class="nav-link" href="#">All Users</a>
+        <a class="nav-link" href="#">Logout</a>
+      </li>
+      <!-- Add more navigation items here -->
+    </ul>
+  </div>
+
+  <div class="mx-4 py-1 togglebutton d-none">
+    <button (click)="toggleSidebar()" class="btn-primary btn btn-sm">
+      {{ !sidebarHidden ? "open" : "close" }}
+    </button>
+  </div>
+  <div class="content-area">
+    <router-outlet></router-outlet>
+  </div>
+</div>

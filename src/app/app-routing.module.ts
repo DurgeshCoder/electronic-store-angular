@@ -10,6 +10,8 @@ import { DashboardComponent } from './components/user/dashboard/dashboard.compon
 import { normalUserGuard } from './guards/normal-user.guard';
 import { DashboardComponent as AdminDashboard } from './components/admin/dashboard/dashboard.component';
 import { adminUserGuard } from './guards/admin-user.guard';
+import { HomeComponent as AdminHome } from './components/admin/home/home.component';
+import { AddProductComponent } from './components/admin/add-product/add-product.component';
 const routes: Routes = [
   {
     path: '',
@@ -57,6 +59,22 @@ const routes: Routes = [
     component: AdminDashboard,
     title: 'Admin Dashboard',
     canActivate: [adminUserGuard],
+    children: [
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
+      },
+      {
+        path: 'home',
+        component: AdminHome,
+      },
+      {
+        path: 'add-product',
+        component: AddProductComponent,
+        title: 'Add Product',
+      },
+    ],
   },
 ];
 

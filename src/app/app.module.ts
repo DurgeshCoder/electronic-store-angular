@@ -19,6 +19,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { authReducer } from './store/auth/auth.reducers';
 import { DashboardComponent } from './components/user/dashboard/dashboard.component';
+import { AddProductComponent } from './components/admin/add-product/add-product.component';
+import { ViewProductsComponent } from './components/admin/view-products/view-products.component';
+import { DashboardComponent as AdminDashboard } from './components/admin/dashboard/dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +34,9 @@ import { DashboardComponent } from './components/user/dashboard/dashboard.compon
     AdminNavbarComponent,
     CategoriesComponent,
     DashboardComponent,
+    AddProductComponent,
+    ViewProductsComponent,
+    AdminDashboard,
   ],
   imports: [
     BrowserModule,
