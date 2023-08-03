@@ -3,4 +3,8 @@ export const environment = {
   apiUrl: 'http://api.lcwd.com',
   paymentKey: 23525,
   // production configurations
+  ROLE_NORMAL_ID: 'awgfasfwsdqtgasfwqgsdtg',
+  ROLE_NORMAL_NAME: 'ROLE_NORMAL',
+  ROLE_ADMIN_ID: 'awgfasfwsdqtgasfwqgsdtg',
+  ROLE_ADMIN_NAME: 'ROLE_ADMIN',
 };

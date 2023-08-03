@@ -7,8 +7,15 @@ import { LoginComponent } from './components/pages/login/login.component';
 import { SignupComponent } from './components/pages/signup/signup.component';
 import { CategoriesComponent } from './components/common/categories/categories.component';
 import { DashboardComponent } from './components/user/dashboard/dashboard.component';
-
+import { normalUserGuard } from './guards/normal-user.guard';
+import { DashboardComponent as AdminDashboard } from './components/admin/dashboard/dashboard.component';
+import { adminUserGuard } from './guards/admin-user.guard';
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
   {
     path: 'home',
     component: HomeComponent,
@@ -43,6 +50,13 @@ const routes: Routes = [
     path: 'user',
     component: DashboardComponent,
     title: 'UserDashboard',
+    canActivate: [normalUserGuard],
+  },
+  {
+    path: 'admin',
+    component: AdminDashboard,
+    title: 'Admin Dashboard',
+    canActivate: [adminUserGuard],
   },
 ];
 
