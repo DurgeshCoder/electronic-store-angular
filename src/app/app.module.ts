@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { authReducer } from './store/auth/auth.reducers';
+import { DashboardComponent } from './components/user/dashboard/dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +30,7 @@ import { authReducer } from './store/auth/auth.reducers';
     CustomNavbarComponent,
     AdminNavbarComponent,
     CategoriesComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +44,7 @@ import { authReducer } from './store/auth/auth.reducers';
     FormsModule,
     HttpClientModule,
     StoreModule.forRoot({
-      authReducer: authReducer,
+      auth: authReducer,
     }),
   ],
   providers: [],

@@ -4,6 +4,8 @@ import { LoginResponse } from 'src/app/models/loginresponse.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { Store } from '@ngrx/store';
 import { setLoginData } from 'src/app/store/auth/auth.actions';
+import { Router } from '@angular/router';
+import { Observable, asyncScheduler, firstValueFrom } from 'rxjs';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -18,13 +20,14 @@ export class LoginComponent {
   constructor(
     private toastr: ToastrService,
     private authService: AuthService,
-    private store: Store<{ auth: LoginResponse }>
+    private store: Store<{ auth: LoginResponse }>,
+    private router: Router
   ) {
-    this.store.select('auth').subscribe({
-      next: (data) => {
-        console.log(data);
-      },
-    });
+    // this.store.select('auth').subscribe({
+    //   next: (data) => {
+    //     console.log(data);
+    //   },
+    // });
   }
 
   formSubmitted(event: SubmitEvent) {
@@ -44,6 +47,7 @@ export class LoginComponent {
       next: (value: LoginResponse) => {
         console.log(value);
         this.store.dispatch(setLoginData(value));
+        this.router.navigate(['/user']);
       },
       error: (error) => {
         console.log(error);

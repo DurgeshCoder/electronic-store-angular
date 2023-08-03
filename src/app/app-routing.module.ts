@@ -6,6 +6,7 @@ import { FeatureComponent } from './components/pages/feature/feature.component';
 import { LoginComponent } from './components/pages/login/login.component';
 import { SignupComponent } from './components/pages/signup/signup.component';
 import { CategoriesComponent } from './components/common/categories/categories.component';
+import { DashboardComponent } from './components/user/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,11 @@ const routes: Routes = [
     path: 'categories',
     component: CategoriesComponent,
     title: 'Categories: Electronic Store',
+  },
+  {
+    path: 'user',
+    component: DashboardComponent,
+    title: 'UserDashboard',
   },
 ];
 
