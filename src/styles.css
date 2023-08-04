@@ -1,2 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'ngx-toastr/toastr';
+
+
+/* admin layout css */
+
+.admin-layout .sidebar{
+  width: 220px;
+  height: 100vh;
+  position: fixed;
+
+}
+
+
+
+.admin-layout .sidebar .nav-link:hover{
+
+  background-color: #e2e2e2!important;
+  color: #000!important;
+
+}
+.admin-layout .sidebar .nav-link.active{
+
+  background-color: #e2e2e2!important;
+  color: #000!important;
+
+}
+
+.admin-layout   .content{
+  margin-left: 230px;
+}
+
+
+.custom-icon-size{
+  width: 50px!important;
+  height: 50px!important;
+}
+;

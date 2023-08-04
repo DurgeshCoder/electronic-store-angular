@@ -10,6 +10,13 @@ import { DashboardComponent } from './components/user/dashboard/dashboard.compon
 import { normalUserGuard } from './guards/normal-user.guard';
 import { DashboardComponent as AdminDashboard } from './components/admin/dashboard/dashboard.component';
 import { adminUserGuard } from './guards/admin-user.guard';
+import { HomeComponent as AdminHomeComponent } from './components/admin/home/home.component';
+import { AddProductComponent } from './components/admin/add-product/add-product.component';
+import { ViewProductsComponent } from './components/admin/view-products/view-products.component';
+import { AddCategoriesComponent } from './components/admin/add-categories/add-categories.component';
+import { ViewCategoriesComponent } from './components/admin/view-categories/view-categories.component';
+import { ViewOrdersComponent } from './components/admin/view-orders/view-orders.component';
+import { ViewUsersComponent } from './components/admin/view-users/view-users.component';
 const routes: Routes = [
   {
     path: '',
@@ -57,6 +64,42 @@ const routes: Routes = [
     component: AdminDashboard,
     title: 'Admin Dashboard',
     canActivate: [adminUserGuard],
+    children: [
+      {
+        path: 'home',
+        component: AdminHomeComponent,
+        title: 'Admin Dashabord',
+      },
+      {
+        path: 'add-product',
+        component: AddProductComponent,
+        title: 'Add Product',
+      },
+      {
+        path: 'view-products',
+        component: ViewProductsComponent,
+      },
+      {
+        path: 'add-category',
+        component: AddCategoriesComponent,
+        title: 'Add Category',
+      },
+      {
+        path: 'view-categories',
+        component: ViewCategoriesComponent,
+        title: 'View Categories',
+      },
+      {
+        path: 'orders',
+        component: ViewOrdersComponent,
+        title: 'View Orders',
+      },
+      {
+        path: 'users',
+        component: ViewUsersComponent,
+        title: 'Users',
+      },
+    ],
   },
 ];
 

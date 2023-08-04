@@ -15,10 +15,48 @@ import { CustomNavbarComponent } from './components/common/custom-navbar/custom-
 import { AdminNavbarComponent } from './components/common/admin-navbar/admin-navbar.component';
 import { CategoriesComponent } from './components/common/categories/categories.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { authReducer } from './store/auth/auth.reducers';
 import { DashboardComponent } from './components/user/dashboard/dashboard.component';
+import { AddProductComponent } from './components/admin/add-product/add-product.component';
+import { ViewProductsComponent } from './components/admin/view-products/view-products.component';
+import { AddCategoriesComponent } from './components/admin/add-categories/add-categories.component';
+import { ViewCategoriesComponent } from './components/admin/view-categories/view-categories.component';
+import { ViewOrdersComponent } from './components/admin/view-orders/view-orders.component';
+import { ViewUsersComponent } from './components/admin/view-users/view-users.component';
+import { DashboardComponent as AdminDashboard } from './components/admin/dashboard/dashboard.component';
+import { TablerIconsModule } from 'angular-tabler-icons';
+import {
+  IconCamera,
+  IconHeart,
+  IconBrandGithub,
+  IconHomeCheck,
+  IconCirclePlus,
+  IconBuildingStore,
+  IconCategoryFilled,
+  IconFileDiff,
+  IconUsersGroup,
+  IconTruckReturn,
+  IconLogout2,
+} from 'angular-tabler-icons/icons';
+import { JwtInterceptor } from './services/JwtInterceptor';
+import { SingleCategoryViewComponent } from './components/common/single-category-view/single-category-view.component';
+
+const icons = {
+  IconCamera,
+  IconHeart,
+  IconBrandGithub,
+  IconHomeCheck,
+  IconCirclePlus,
+  IconBuildingStore,
+  IconCategoryFilled,
+  IconFileDiff,
+  IconUsersGroup,
+  IconTruckReturn,
+  IconLogout2,
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +69,14 @@ import { DashboardComponent } from './components/user/dashboard/dashboard.compon
     AdminNavbarComponent,
     CategoriesComponent,
     DashboardComponent,
+    AddProductComponent,
+    ViewProductsComponent,
+    AddCategoriesComponent,
+    ViewCategoriesComponent,
+    ViewOrdersComponent,
+    ViewUsersComponent,
+    AdminDashboard,
+    SingleCategoryViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,8 +92,15 @@ import { DashboardComponent } from './components/user/dashboard/dashboard.compon
     StoreModule.forRoot({
       auth: authReducer,
     }),
+    TablerIconsModule.pick(icons),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
