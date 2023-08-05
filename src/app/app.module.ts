@@ -43,6 +43,7 @@ import {
 import { JwtInterceptor } from './services/JwtInterceptor';
 import { SingleCategoryViewComponent } from './components/common/single-category-view/single-category-view.component';
 import { categoryReducer } from './store/category/category.reducers';
+import { QuillModule } from 'ngx-quill';
 
 const icons = {
   IconCamera,
@@ -95,6 +96,11 @@ const icons = {
       cat: categoryReducer,
     }),
     TablerIconsModule.pick(icons),
+    QuillModule.forRoot({
+      modules: {
+        syntax: false,
+      },
+    }),
   ],
   providers: [
     {

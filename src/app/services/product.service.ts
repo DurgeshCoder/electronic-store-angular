@@ -19,4 +19,13 @@ export class ProductService {
   createProduct(product: Product) {
     return this.http.post(`${environment.apiUrl}/products`, product);
   }
+
+  uploadProductImage(productId: string, imageData: File) {
+    const formData = new FormData();
+    formData.append('productImage', imageData);
+    return this.http.post(
+      `${environment.apiUrl}/products/image/${productId}`,
+      formData
+    );
+  }
 }

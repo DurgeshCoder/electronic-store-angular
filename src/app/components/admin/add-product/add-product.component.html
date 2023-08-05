@@ -1,6 +1,6 @@
-{{ product | json }}
+<!-- {{ product | json }} -->
 
-<div class="card border shadow-sm mt-4">
+<div class="card border shadow-sm mt-4 mb-5">
   <div class="card-body">
     <div class="text-center">
       <i-tabler class="custom-icon-size" [name]="'circle-plus'"></i-tabler>
@@ -22,14 +22,20 @@
 
       <div class="mb-3">
         <label for="description" class="form-label">Description:</label>
-        <textarea
+        <!-- <textarea
           class="form-control"
           id="description"
           name="description"
           rows="4"
           required
           [(ngModel)]="product.description"
-        ></textarea>
+        ></textarea> -->
+        <quill-editor
+          [style]="{ height: '300px', width: '100%' }"
+          [placeholder]="'Enter text...'"
+          [(ngModel)]="product.description"
+          name="description"
+        ></quill-editor>
       </div>
 
       <div class="mb-3">
@@ -120,8 +126,17 @@
         </select>
       </div>
 
+      <!-- product image -->
+
       <div class="mb-3">
         <label for="productImage" class="form-label">Product Image:</label>
+        <div class="text-center my-3" *ngIf="imageData.file">
+          <img
+            style="height: 250px; width: auto"
+            [src]="imageData.previewImageUrl"
+            alt="preview product image"
+          />
+        </div>
         <input
           type="file"
           class="form-control"
@@ -129,6 +144,7 @@
           name="productImage"
           accept="image/*"
           required
+          (change)="imageFieldChanged($event)"
         />
       </div>
 

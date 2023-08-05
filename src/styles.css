@@ -1,11 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'ngx-toastr/toastr';
-
-
+@import '~quill/dist/quill.snow.css';
+/* @import '~quill/dist/quill.bubble.css'; */
 /* admin layout css */
 
+body{
+  background-color: #f0efef;
+}
 .admin-layout .sidebar{
-  width: 220px;
+  width: 250px;
   height: 100vh;
   position: fixed;
 
@@ -27,7 +30,8 @@
 }
 
 .admin-layout   .content{
-  margin-left: 230px;
+  margin-left: 255px;
+
 }
 
 

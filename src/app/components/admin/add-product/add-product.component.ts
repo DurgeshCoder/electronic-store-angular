@@ -15,6 +15,10 @@ import { setCategoryData } from 'src/app/store/category/category.actions';
 export class AddProductComponent implements OnInit {
   categories: Category[] = [];
   product = new Product();
+  imageData: ImageData = {
+    previewImageUrl: '',
+    file: undefined,
+  };
   constructor(
     private catService: CategoryService,
     private catStore: Store<{ cat: Category[] }>,
@@ -80,7 +84,26 @@ export class AddProductComponent implements OnInit {
       this.productService.createProductWithCategory(this.product).subscribe({
         next: (data) => {
           console.log(data);
+
           this.toastr.success('Product created id ' + data.productId);
+          this.product = new Product();
+          // image upload...
+          this.productService
+            .uploadProductImage(data.productId, this.imageData.file!)
+            .subscribe({
+              next: (data) => {
+                console.log(data);
+                this.toastr.success('product image also updated...');
+                this.imageData = {
+                  previewImageUrl: '',
+                  file: undefined,
+                };
+              },
+              error: (error) => {
+                console.log(error);
+                this.toastr.error('Error in uploading image...');
+              },
+            });
         },
         error: (error) => {
           console.log(error);
@@ -90,8 +113,36 @@ export class AddProductComponent implements OnInit {
     }
   }
 
+  // imageFieldChanged
+
+  imageFieldChanged(event: Event) {
+    console.log(event);
+    this.imageData.file = (event.target as HTMLInputElement).files![0];
+    console.log(this.imageData.file);
+    if (
+      this.imageData.file.type == 'image/png' ||
+      this.imageData.file.type == 'image/jpeg'
+    ) {
+      //preview ..
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imageData.previewImageUrl = reader.result as string;
+      };
+      reader.readAsDataURL(this.imageData.file);
+      // upload file
+    } else {
+      this.toastr.error('Only JPEG or PNG allowed !!');
+      this.imageData.file = undefined;
+    }
+  }
+
   // custom login to compare
   compareFn(value: any, option: any) {
     return value?.categoryId === option?.categoryId;
   }
+}
+
+export interface ImageData {
+  previewImageUrl: string;
+  file: File | undefined;
 }
