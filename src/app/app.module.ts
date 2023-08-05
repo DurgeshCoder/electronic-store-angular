@@ -42,6 +42,7 @@ import {
 } from 'angular-tabler-icons/icons';
 import { JwtInterceptor } from './services/JwtInterceptor';
 import { SingleCategoryViewComponent } from './components/common/single-category-view/single-category-view.component';
+import { categoryReducer } from './store/category/category.reducers';
 
 const icons = {
   IconCamera,
@@ -91,6 +92,7 @@ const icons = {
     HttpClientModule,
     StoreModule.forRoot({
       auth: authReducer,
+      cat: categoryReducer,
     }),
     TablerIconsModule.pick(icons),
   ],

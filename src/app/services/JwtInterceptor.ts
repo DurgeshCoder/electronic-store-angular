@@ -4,7 +4,7 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
-import { Observable, switchMap, tap } from 'rxjs';
+import { Observable, switchMap, take, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { map } from 'rxjs';
@@ -19,6 +19,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
     // write login to add jwt token
     return this.authService.getLoggedInData().pipe(
+      take(1),
       switchMap((value) => {
         // console.log(value.jwtToken + ' from switch map');
         //add token to header
