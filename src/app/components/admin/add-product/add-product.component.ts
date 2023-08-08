@@ -84,7 +84,6 @@ export class AddProductComponent implements OnInit {
       this.productService.createProductWithCategory(this.product).subscribe({
         next: (data) => {
           console.log(data);
-
           this.toastr.success('Product created id ' + data.productId);
           this.product = new Product();
           // image upload...
