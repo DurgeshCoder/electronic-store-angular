@@ -9,7 +9,7 @@ export const intialState: LoginResponse =
     ? AuthService.getLoginDataFromLocalStorage()
     : {
         jwtToken: '',
-        user: null,
+        user: undefined,
         login: false,
       };
 
@@ -23,7 +23,7 @@ export const authReducer = createReducer(
   on(removeLoginData, (state) => {
     return {
       jwtToken: '',
-      user: null,
+      user: undefined,
       login: false,
     };
   })

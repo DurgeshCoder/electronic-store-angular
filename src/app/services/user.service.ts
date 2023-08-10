@@ -13,4 +13,51 @@ export class UserService {
   signupUser(user: User) {
     return this.httpClient.post<User>(`${environment.apiUrl}/users`, user);
   }
+
+  getUserImageUrl(userId: string) {
+    return `${environment.apiUrl}/users/image/${userId}`;
+  }
+
+  // get all users
+  getUsers() {
+    return this.httpClient.get(`${environment.apiUrl}/users`);
+  }
+
+  // get single user
+  getUser(userId: string) {
+    return this.httpClient.get(`${environment.apiUrl}/users/${userId}`);
+  }
+
+  // update user
+  updateUser(user: User) {
+    return this.httpClient.put(
+      `${environment.apiUrl}/users/${user.userId}`,
+      user
+    );
+  }
+
+  // delete  user
+  deleteUser(userId: string) {
+    return this.httpClient.delete(`${environment.apiUrl}/users/${userId}`);
+  }
+
+  //get user  by email id
+  getUserByEmailId(emailId: string) {
+    return this.httpClient.get(`${environment.apiUrl}/users/email/${emailId}`);
+  }
+
+  // uplaod user image
+  uploadUserImage(userId: string, userImage: File) {
+    let formData = new FormData();
+    formData.append('userImage', userImage);
+    return this.httpClient.post(
+      `${environment.apiUrl}/users/image/${userId}`,
+      formData
+    );
+  }
+
+  // search user
+  searchUser(query: String) {
+    return this.httpClient.get(`${environment.apiUrl}/users/search/${query}`);
+  }
 }

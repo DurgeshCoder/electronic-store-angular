@@ -17,12 +17,14 @@ import { AddCategoriesComponent } from './components/admin/add-categories/add-ca
 import { ViewCategoriesComponent } from './components/admin/view-categories/view-categories.component';
 import { ViewOrdersComponent } from './components/admin/view-orders/view-orders.component';
 import { ViewUsersComponent } from './components/admin/view-users/view-users.component';
+import { UserComponent } from './components/pages/user/user.component';
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
   },
+
   {
     path: 'home',
     component: HomeComponent,
@@ -60,6 +62,11 @@ const routes: Routes = [
     canActivate: [normalUserGuard],
   },
   {
+    path: 'profile',
+    component: UserComponent,
+    canActivate: [normalUserGuard],
+  },
+  {
     path: 'admin',
     component: AdminDashboard,
     title: 'Admin Dashboard',
@@ -78,6 +85,7 @@ const routes: Routes = [
       {
         path: 'view-products',
         component: ViewProductsComponent,
+        title: 'View products',
       },
       {
         path: 'add-category',

@@ -55,4 +55,36 @@ export class ProductService {
   getProductImageUrl(productId: string) {
     return `${environment.apiUrl}/products/image/${productId}`;
   }
+
+  deleteProduct(productId: string) {
+    return this.http.delete(`${environment.apiUrl}/products/${productId}`);
+  }
+
+  // update
+  // update product
+  updateProduct(product: Product) {
+    return this.http.put<Product>(
+      `${environment.apiUrl}/products/${product.productId}`,
+      product
+    );
+  }
+
+  updateCategoryOfProduct(productId: string, categoryId: string) {
+    return this.http.put<Product>(
+      `${environment.apiUrl}/categories/${categoryId}/products/${productId}`,
+      null
+    );
+  }
+
+  searchProduct(
+    query: string,
+    pageNumber = 0,
+    pageSize = 10,
+    sortBy = 'title',
+    sortDir = 'asc'
+  ) {
+    return this.http.get<ProductsReponse>(
+      `${environment.apiUrl}/products/search/${query}?pageNumber=${pageNumber}&pageSize=${pageSize}&sortBy=${sortBy}&sortDir=${sortDir}`
+    );
+  }
 }

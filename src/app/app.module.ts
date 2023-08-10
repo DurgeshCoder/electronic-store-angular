@@ -44,6 +44,9 @@ import { JwtInterceptor } from './services/JwtInterceptor';
 import { SingleCategoryViewComponent } from './components/common/single-category-view/single-category-view.component';
 import { categoryReducer } from './store/category/category.reducers';
 import { QuillModule } from 'ngx-quill';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { UserComponent } from './components/pages/user/user.component';
+import { UserViewComponent } from './components/common/user-view/user-view.component';
 
 const icons = {
   IconCamera,
@@ -79,6 +82,8 @@ const icons = {
     ViewUsersComponent,
     AdminDashboard,
     SingleCategoryViewComponent,
+    UserComponent,
+    UserViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -101,6 +106,7 @@ const icons = {
         syntax: false,
       },
     }),
+    SweetAlert2Module.forRoot({}),
   ],
   providers: [
     {
