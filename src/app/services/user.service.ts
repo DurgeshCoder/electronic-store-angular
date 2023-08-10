@@ -15,7 +15,9 @@ export class UserService {
   }
 
   getUserImageUrl(userId: string) {
-    return `${environment.apiUrl}/users/image/${userId}`;
+    return `${
+      environment.apiUrl
+    }/users/image/${userId}?${new Date().getTime()}`;
   }
 
   // get all users
@@ -30,7 +32,7 @@ export class UserService {
 
   // update user
   updateUser(user: User) {
-    return this.httpClient.put(
+    return this.httpClient.put<User>(
       `${environment.apiUrl}/users/${user.userId}`,
       user
     );
