@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from '../models/user.model';
+import { User, UsersResponse } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
@@ -22,7 +22,7 @@ export class UserService {
 
   // get all users
   getUsers() {
-    return this.httpClient.get(`${environment.apiUrl}/users`);
+    return this.httpClient.get<UsersResponse>(`${environment.apiUrl}/users`);
   }
 
   // get single user

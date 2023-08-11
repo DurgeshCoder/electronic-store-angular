@@ -105,7 +105,7 @@ const routes: Routes = [
       {
         path: 'users',
         component: ViewUsersComponent,
-        title: 'Users',
+        title: 'All Users',
       },
     ],
   },

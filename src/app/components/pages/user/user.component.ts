@@ -83,9 +83,19 @@ export class UserComponent {
           this.userService
             .uploadUserImage(this.user!.userId, this.imageFile)
             .subscribe({
-              next: (data) => {
+              next: (data: any) => {
                 console.log(data);
-                this.toastr.success('image updated !!');
+                this.user!.imageName = data.imageName;
+                console.log(this.user);
+                const newLoginResponse = {
+                  jwtToken: this.loginResponse?.jwtToken,
+                  user: { ...this.user, imageName: data.imageName },
+                  login: this.loginResponse?.login,
+                };
+                this.authStore.dispatch(
+                  setLoginData(newLoginResponse as LoginResponse)
+                );
+                this.toastr.success(data.message);
                 this.imageFile = undefined;
                 this.previewImageUrl = '';
                 this.modalService.dismissAll();

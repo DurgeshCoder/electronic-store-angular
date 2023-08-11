@@ -8,6 +8,16 @@ export class User {
     public gender: string,
     public about: string, //  .....
     public roles: Role[] = [],
-    public userId: string = ''
+    public userId: string = '',
+    public imageName: string = ''
   ) {}
+}
+
+export interface UsersResponse {
+  lastPage: boolean;
+  pageNumber: number;
+  pageSize: number;
+  totalElements: number;
+  totalPages: number;
+  content: User[];
 }
