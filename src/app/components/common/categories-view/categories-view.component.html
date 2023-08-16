@@ -1,0 +1,21 @@
+<div class="list-group">
+  <a class="list-group-item list-group-item-action" href="">
+    <img
+      class="cat-image mx-2"
+      [src]="'https://i.insider.com/5ed95c393f7370198527eea3?width=700'"
+      alt=""
+    />
+    <span class="fs-5"> All Products</span>
+  </a>
+
+  <a
+    href=""
+    *ngFor="let cat of categories"
+    class="list-group-item list-group-item-action"
+  >
+    <span class="fs-5">
+      <img class="cat-image mx-2" [src]="cat.coverImage" alt="" />
+      {{ cat.title }}</span
+    >
+  </a>
+</div>
