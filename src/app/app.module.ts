@@ -47,6 +47,8 @@ import { QuillModule } from 'ngx-quill';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { UserComponent } from './components/pages/user/user.component';
 import { UserViewComponent } from './components/common/user-view/user-view.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { StoreComponent } from './components/pages/store/store.component';
 
 const icons = {
   IconCamera,
@@ -84,6 +86,7 @@ const icons = {
     SingleCategoryViewComponent,
     UserComponent,
     UserViewComponent,
+    StoreComponent,
   ],
   imports: [
     BrowserModule,
@@ -107,6 +110,7 @@ const icons = {
       },
     }),
     SweetAlert2Module.forRoot({}),
+    InfiniteScrollModule,
   ],
   providers: [
     {

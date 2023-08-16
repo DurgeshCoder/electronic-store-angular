@@ -18,6 +18,7 @@ import { ViewCategoriesComponent } from './components/admin/view-categories/view
 import { ViewOrdersComponent } from './components/admin/view-orders/view-orders.component';
 import { ViewUsersComponent } from './components/admin/view-users/view-users.component';
 import { UserComponent } from './components/pages/user/user.component';
+import { StoreComponent } from './components/pages/store/store.component';
 const routes: Routes = [
   {
     path: '',
@@ -29,6 +30,11 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     title: 'Home: Electronic Store',
+  },
+  {
+    path: 'store',
+    component: StoreComponent,
+    title: 'Store',
   },
   {
     path: 'about',

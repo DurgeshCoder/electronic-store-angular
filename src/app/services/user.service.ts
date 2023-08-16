@@ -21,8 +21,10 @@ export class UserService {
   }
 
   // get all users
-  getUsers() {
-    return this.httpClient.get<UsersResponse>(`${environment.apiUrl}/users`);
+  getUsers(pageNumber = 0, pageSize = 10, sortBy = 'name', sortDir = 'asc') {
+    return this.httpClient.get<UsersResponse>(
+      `${environment.apiUrl}/users?pageNumber=${pageNumber}&pageSize=${pageSize}&sortBy=${sortBy}&sortDir=${sortDir}`
+    );
   }
 
   // get single user
