@@ -51,6 +51,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { StoreComponent } from './components/pages/store/store.component';
 import { SingleProductCardComponent } from './components/common/single-product-card/single-product-card.component';
 import { CategoriesViewComponent } from './components/common/categories-view/categories-view.component';
+import { StoreCategoriesComponent } from './components/pages/store-categories/store-categories.component';
 
 const icons = {
   IconCamera,
@@ -91,6 +92,7 @@ const icons = {
     StoreComponent,
     SingleProductCardComponent,
     CategoriesViewComponent,
+    StoreCategoriesComponent,
   ],
   imports: [
     BrowserModule,

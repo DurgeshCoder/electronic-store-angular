@@ -19,6 +19,7 @@ import { ViewOrdersComponent } from './components/admin/view-orders/view-orders.
 import { ViewUsersComponent } from './components/admin/view-users/view-users.component';
 import { UserComponent } from './components/pages/user/user.component';
 import { StoreComponent } from './components/pages/store/store.component';
+import { StoreCategoriesComponent } from './components/pages/store-categories/store-categories.component';
 const routes: Routes = [
   {
     path: '',
@@ -34,7 +35,11 @@ const routes: Routes = [
   {
     path: 'store',
     component: StoreComponent,
-    title: 'Store',
+    title: 'All Products : Store',
+  },
+  {
+    path: 'store/:categoryId/:categoryTitle',
+    component: StoreCategoriesComponent,
   },
   {
     path: 'about',

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Product, ProductsReponse } from '../models/product.model';
 import { environment } from 'src/environments/environment';
 import { applyStyles } from '@popperjs/core';
+import { CategoryPaginatedReponse } from '../models/category.model';
 
 @Injectable({
   providedIn: 'root',
@@ -49,6 +50,18 @@ export class ProductService {
   ) {
     return this.http.get<ProductsReponse>(
       `${environment.apiUrl}/products?pageNumber=${pageNumber}&pageSize=${pageSize}&sortBy=${sortBy}&sortDir=${sortDir}`
+    );
+  }
+
+  getProductsOfCategory(
+    categoryId: string,
+    pageNumber = 0,
+    pageSize = 10,
+    sortBy = 'title',
+    sortDir = 'asc'
+  ) {
+    return this.http.get<ProductsReponse>(
+      `${environment.apiUrl}/categories/${categoryId}/products?pageNumber=${pageNumber}&pageSize=${pageSize}&sortBy=${sortBy}&sortDir=${sortDir}`
     );
   }
 

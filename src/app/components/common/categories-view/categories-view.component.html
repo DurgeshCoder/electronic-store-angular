@@ -1,5 +1,9 @@
 <div class="list-group">
-  <a class="list-group-item list-group-item-action" href="">
+  <a
+    [routerLink]="'/store'"
+    class="list-group-item list-group-item-action"
+    href=""
+  >
     <img
       class="cat-image mx-2"
       [src]="'https://i.insider.com/5ed95c393f7370198527eea3?width=700'"
@@ -10,7 +14,9 @@
 
   <a
     href=""
+    [routerLink]="['/store', cat.categoryId, cat.title]"
     *ngFor="let cat of categories"
+    routerLinkActive="active"
     class="list-group-item list-group-item-action"
   >
     <span class="fs-5">

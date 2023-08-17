@@ -5,6 +5,7 @@
     </div>
   </div>
   <div class="col-md-10">
+    <!-- products -->
     <!-- show products -->
     <div
       class="row gx-2 align-items-stretch"
@@ -24,6 +25,16 @@
       >
         <app-single-product-card [product]="product"></app-single-product-card>
       </div>
+    </div>
+
+    <div
+      class="text-center"
+      *ngIf="productsResponse && productsResponse.content.length == 0"
+    >
+      <h3 class="m-4">No items in this category</h3>
+      <button [routerLink]="['/store']" class="btn btn-primary">
+        All Products
+      </button>
     </div>
   </div>
 </div>
