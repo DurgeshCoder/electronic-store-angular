@@ -41,5 +41,11 @@
     >
       {{ !product.stock ? "Out of Stock" : " Add to Card" }}
     </button>
+    <button
+      [routerLink]="['/product', product.productId]"
+      class="btn btn-warning my-2"
+    >
+      View
+    </button>
   </div>
 </div>

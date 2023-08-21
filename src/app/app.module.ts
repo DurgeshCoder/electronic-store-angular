@@ -52,6 +52,7 @@ import { StoreComponent } from './components/pages/store/store.component';
 import { SingleProductCardComponent } from './components/common/single-product-card/single-product-card.component';
 import { CategoriesViewComponent } from './components/common/categories-view/categories-view.component';
 import { StoreCategoriesComponent } from './components/pages/store-categories/store-categories.component';
+import { ViewProductComponent } from './components/pages/view-product/view-product.component';
 
 const icons = {
   IconCamera,
@@ -93,6 +94,7 @@ const icons = {
     SingleProductCardComponent,
     CategoriesViewComponent,
     StoreCategoriesComponent,
+    ViewProductComponent,
   ],
   imports: [
     BrowserModule,

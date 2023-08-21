@@ -9,6 +9,11 @@ import { CategoryPaginatedReponse } from '../models/category.model';
   providedIn: 'root',
 })
 export class ProductService {
+  getProduct(productId: string) {
+    return this.http.get<Product>(
+      `${environment.apiUrl}/products/${productId}`
+    );
+  }
   constructor(private http: HttpClient) {}
 
   createProductWithCategory(product: Product) {

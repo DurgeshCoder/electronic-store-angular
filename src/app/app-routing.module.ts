@@ -20,6 +20,7 @@ import { ViewUsersComponent } from './components/admin/view-users/view-users.com
 import { UserComponent } from './components/pages/user/user.component';
 import { StoreComponent } from './components/pages/store/store.component';
 import { StoreCategoriesComponent } from './components/pages/store-categories/store-categories.component';
+import { ViewProductComponent } from './components/pages/view-product/view-product.component';
 const routes: Routes = [
   {
     path: '',
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: 'store/:categoryId/:categoryTitle',
     component: StoreCategoriesComponent,
+  },
+  {
+    path: 'product/:productId',
+    component: ViewProductComponent,
   },
   {
     path: 'about',
