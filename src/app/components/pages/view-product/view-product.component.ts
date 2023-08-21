@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Product } from 'src/app/models/product.model';
+import { User } from 'src/app/models/user.model';
+import { AuthService } from 'src/app/services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -12,16 +16,26 @@ import { ProductService } from 'src/app/services/product.service';
 export class ViewProductComponent {
   productId?: string;
   product?: Product;
+  user?: User;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     public _productService: ProductService,
+    private _authService: AuthService,
+    private _cartService: CartService,
+    private _toastr: ToastrService,
     private title: Title
   ) {
     this.activatedRoute.params.subscribe((params) => {
       this.productId = params['productId'];
       console.log(this.productId);
       this.loadProduct();
+    });
+
+    this._authService.getLoggedInData().subscribe({
+      next: (data) => {
+        this.user = data.user;
+      },
     });
   }
   loadProduct() {
@@ -33,6 +47,34 @@ export class ViewProductComponent {
           this.title.setTitle(data.title + ' | Electonic Store ');
         },
       });
+    }
+  }
+
+  addToCartRequest(product: Product) {
+    if (!product.stock) {
+      this._toastr.error('Product is not in stock');
+      return;
+    }
+
+    // request to add item in cart
+    if (this.user) {
+      this._cartService
+        .addItemToCart(this.user.userId, {
+          productId: product.productId,
+          quantity: 1,
+        })
+        .subscribe({
+          next: (cart) => {
+            console.log(cart);
+            this._toastr.success('Item is added to cart');
+          },
+          error: (error) => {
+            console.log(error);
+            this._toastr.error('Failed to add item to cart');
+          },
+        });
+    } else {
+      this._toastr.error('Need to login first ');
     }
   }
 }

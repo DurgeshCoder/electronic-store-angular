@@ -33,6 +33,7 @@
       >
     </p>
     <button
+      (click)="addToCartRequest(product)"
       class="btn"
       [ngClass]="{
         'btn-primary': product.stock,
