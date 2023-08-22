@@ -21,6 +21,7 @@ import { UserComponent } from './components/pages/user/user.component';
 import { StoreComponent } from './components/pages/store/store.component';
 import { StoreCategoriesComponent } from './components/pages/store-categories/store-categories.component';
 import { ViewProductComponent } from './components/pages/view-product/view-product.component';
+import { CartComponent } from './components/pages/cart/cart.component';
 const routes: Routes = [
   {
     path: '',
@@ -45,6 +46,11 @@ const routes: Routes = [
   {
     path: 'product/:productId',
     component: ViewProductComponent,
+  },
+  {
+    path: 'cart',
+    component: CartComponent,
+    title: 'Cart | Electornic Store',
   },
   {
     path: 'about',

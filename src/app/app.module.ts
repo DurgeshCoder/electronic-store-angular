@@ -39,6 +39,10 @@ import {
   IconUsersGroup,
   IconTruckReturn,
   IconLogout2,
+  IconPlus,
+  IconMinus,
+  IconHttpDelete,
+  IconTrash,
 } from 'angular-tabler-icons/icons';
 import { JwtInterceptor } from './services/JwtInterceptor';
 import { SingleCategoryViewComponent } from './components/common/single-category-view/single-category-view.component';
@@ -53,6 +57,8 @@ import { SingleProductCardComponent } from './components/common/single-product-c
 import { CategoriesViewComponent } from './components/common/categories-view/categories-view.component';
 import { StoreCategoriesComponent } from './components/pages/store-categories/store-categories.component';
 import { ViewProductComponent } from './components/pages/view-product/view-product.component';
+import { CartComponent } from './components/pages/cart/cart.component';
+import { CartItemComponent } from './components/common/cart-item/cart-item.component';
 
 const icons = {
   IconCamera,
@@ -66,6 +72,10 @@ const icons = {
   IconUsersGroup,
   IconTruckReturn,
   IconLogout2,
+  IconPlus,
+  IconMinus,
+  IconHttpDelete,
+  IconTrash,
 };
 
 @NgModule({
@@ -95,6 +105,8 @@ const icons = {
     CategoriesViewComponent,
     StoreCategoriesComponent,
     ViewProductComponent,
+    CartComponent,
+    CartItemComponent,
   ],
   imports: [
     BrowserModule,
