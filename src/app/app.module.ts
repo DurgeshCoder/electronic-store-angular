@@ -27,6 +27,7 @@ import { ViewOrdersComponent } from './components/admin/view-orders/view-orders.
 import { ViewUsersComponent } from './components/admin/view-users/view-users.component';
 import { DashboardComponent as AdminDashboard } from './components/admin/dashboard/dashboard.component';
 import { TablerIconsModule } from 'angular-tabler-icons';
+import { cartReducer } from './store/cart/cart.reducers';
 import {
   IconCamera,
   IconHeart,
@@ -59,6 +60,7 @@ import { StoreCategoriesComponent } from './components/pages/store-categories/st
 import { ViewProductComponent } from './components/pages/view-product/view-product.component';
 import { CartComponent } from './components/pages/cart/cart.component';
 import { CartItemComponent } from './components/common/cart-item/cart-item.component';
+import { OrderViewModalComponent } from './components/common/order-view-modal/order-view-modal.component';
 
 const icons = {
   IconCamera,
@@ -107,6 +109,7 @@ const icons = {
     ViewProductComponent,
     CartComponent,
     CartItemComponent,
+    OrderViewModalComponent
   ],
   imports: [
     BrowserModule,
@@ -122,6 +125,7 @@ const icons = {
     StoreModule.forRoot({
       auth: authReducer,
       cat: categoryReducer,
+      cart: cartReducer,
     }),
     TablerIconsModule.pick(icons),
     QuillModule.forRoot({

@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
+import { Cart } from 'src/app/models/cart.model';
 import { Product } from 'src/app/models/product.model';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
+import { updateCart } from 'src/app/store/cart/cart.actions';
 
 @Component({
   selector: 'app-view-product',
@@ -24,7 +27,8 @@ export class ViewProductComponent {
     private _authService: AuthService,
     private _cartService: CartService,
     private _toastr: ToastrService,
-    private title: Title
+    private title: Title,
+    private cartStore: Store<{ cart: Cart }>
   ) {
     this.activatedRoute.params.subscribe((params) => {
       this.productId = params['productId'];
@@ -67,6 +71,7 @@ export class ViewProductComponent {
           next: (cart) => {
             console.log(cart);
             this._toastr.success('Item is added to cart');
+            this.cartStore.dispatch(updateCart({ cart: cart }));
           },
           error: (error) => {
             console.log(error);

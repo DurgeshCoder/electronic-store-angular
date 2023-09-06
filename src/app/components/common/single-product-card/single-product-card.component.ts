@@ -1,10 +1,13 @@
 import { Component, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
+import { Cart } from 'src/app/models/cart.model';
 import { Product } from 'src/app/models/product.model';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
+import { updateCart } from 'src/app/store/cart/cart.actions';
 
 @Component({
   selector: 'app-single-product-card',
@@ -19,7 +22,8 @@ export class SingleProductCardComponent {
     public productService: ProductService,
     private _toastr: ToastrService,
     private _cartService: CartService,
-    private _auth: AuthService
+    private _auth: AuthService,
+    private _cartStore: Store<{ cart: Cart }>
   ) {
     this._auth.getLoggedInData().subscribe({
       next: (data) => {
@@ -45,6 +49,7 @@ export class SingleProductCardComponent {
           next: (cart) => {
             console.log(cart);
             this._toastr.success('Item is added to cart');
+            this._cartStore.dispatch(updateCart({ cart: cart }));
           },
           error: (error) => {
             console.log(error);

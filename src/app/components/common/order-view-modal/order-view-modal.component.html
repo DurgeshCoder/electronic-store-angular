@@ -1,0 +1,123 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Order Detail</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid" *ngIf="order">
+      <h4>Order by {{ order.user.name }}</h4>
+
+      <div class="responsive-table mt-4">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td>Billing Name</td>
+              <td>
+                {{ order.billingName }}
+              </td>
+            </tr>
+            <tr>
+              <td>Billing Phone</td>
+              <td>
+                {{ order.billingPhone }}
+              </td>
+            </tr>
+            <tr>
+              <td>Billing Address</td>
+              <td>
+                {{ order.billingAddress }}
+              </td>
+            </tr>
+            <tr>
+              <td>Placed on</td>
+              <td>
+                {{ order.orderedDate | date : "dd-MM-yyyy" }}
+              </td>
+            </tr>
+            <tr
+              [ngClass]="{
+                'table-success': order.orderStatus == orderStatus.DELIVERED,
+                'table-danger': order.orderStatus == orderStatus.PENDING
+              }"
+            >
+              <td>Order Status</td>
+              <td>
+                {{ order.orderStatus }}
+              </td>
+            </tr>
+
+            <tr
+              [ngClass]="{
+                'table-success': order.paymentStatus == paymentStatus.PAID,
+                'table-danger': order.paymentStatus == paymentStatus.NOTPAID
+              }"
+            >
+              <td>Payment Status</td>
+              <td>
+                {{ order.paymentStatus }}
+              </td>
+            </tr>
+            <tr>
+              <td>Ammount</td>
+              <td class="fw-bold">
+                {{ order.orderAmount }}
+              </td>
+            </tr>
+            <tr>
+              <td>Delivered Date</td>
+              <td class="fw-bold">
+                {{ order.deliveredDate ? order.deliveredDate : "Not Yet" }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="list-group">
+          <div class="list-group-item" *ngFor="let item of order.orderItems">
+            <div class="row">
+              <div class="col-md-2 text-center">
+                <img
+                  class="product_image mx-auto"
+                  [src]="_product.getProductImageUrl(item.product.productId)"
+                />
+              </div>
+              <div class="col-md-10">
+                <p>{{ item.product.title }}</p>
+                <div class="row">
+                  <div class="col">
+                    <p>Quantity : {{ item.quantity }}</p>
+                  </div>
+                  <div class="col">
+                    <p>
+                      Product Price:
+                      <span class="fw-bold">{{
+                        item.product.discountedPrice
+                      }}</span>
+                    </p>
+                  </div>
+                </div>
+                <p>
+                  Item Price: <span class="fw-bold">{{ item.totalPrice }}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="modal.close('Save click')"
+    >
+      Save
+    </button>
+  </div>
+</ng-template>
