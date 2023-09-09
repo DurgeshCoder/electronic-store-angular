@@ -215,13 +215,45 @@ export class CartComponent implements OnDestroy {
         this._payment.initiatePayment(order.orderId).subscribe({
           next: (data: any) => {
             console.log(data);
-            this._payment.payWithRazorpay({
-              amount: data.amount,
-              razorpayOrderId: data.razorpayOrderId,
-              userName: order.user.name,
-              email: order.user.email,
-              contact: '+917097896966',
-            });
+            const subscription = this._payment
+              .payWithRazorpay({
+                amount: data.amount,
+                razorpayOrderId: data.razorpayOrderId,
+                userName: order.user.name,
+                email: order.user.email,
+                contact: '+917097896966',
+              })
+              .subscribe({
+                next: (data) => {
+                  //success
+                  console.log('from cart component');
+                  console.log(data);
+                  subscription.unsubscribe();
+                  // server api call karni hai
+
+                  this._payment
+                    .captureAndVarifyPayment(order.orderId, data)
+                    .subscribe({
+                      next: (data: any) => {
+                        console.log(data);
+                        this._toastr.success(data.message);
+                      },
+                      error: (error) => {
+                        console.log(error);
+                        this._toastr.error('Error in capturing payment !!');
+                      },
+                    });
+                },
+                error: (error) => {
+                  // error
+                  console.log('error from cart component');
+                  console.log(error);
+                  this._toastr.error(
+                    'error in doing payment, you can retry from orders section'
+                  );
+                  subscription.unsubscribe();
+                },
+              });
           },
         });
       },

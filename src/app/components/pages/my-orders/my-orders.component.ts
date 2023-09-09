@@ -30,7 +30,10 @@ export class MyOrdersComponent implements OnInit {
     if (this.user) {
       this._order.getOrderOfUser(this.user.userId).subscribe({
         next: (orderReponse) => {
-          this.orderResponse.content = orderReponse;
+          this.orderResponse.content = orderReponse.sort((a, b) => {
+            return Number(b.orderedDate) - Number(a.orderedDate);
+          });
+
           console.log(this.orderResponse.content);
         },
       });

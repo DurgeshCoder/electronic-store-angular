@@ -47,11 +47,13 @@
                   <span
                     class="fw-bold badge"
                     [ngClass]="{
-                        'text-bg-danger':
-                          order.paymentStatus == paymentStatus.NOTPAID,
-                        'text-bg-success':
-                          order.paymentStatus == paymentStatus.PAID,
-                      }"
+                      'text-bg-danger':
+                        order.paymentStatus != paymentStatus.PAID,
+                      'text-bg-success':
+                        order.paymentStatus == paymentStatus.PAID,
+                     
+                       
+                    }"
                   >
                     {{ order.paymentStatus }}
                   </span>

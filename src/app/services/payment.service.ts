@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject, skipUntil } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 declare var Razorpay: any;
@@ -17,6 +17,13 @@ export class PaymentService {
     );
   }
 
+  captureAndVarifyPayment(orderId: string, paymentData: any) {
+    return this._http.post(
+      `${environment.apiUrl}/payments/capture/${orderId}`,
+      paymentData
+    );
+  }
+
   // payment with razorypay
   payWithRazorpay(paymentOption: {
     amount: number;
@@ -25,6 +32,7 @@ export class PaymentService {
     email: string;
     contact: string;
   }) {
+    const subject = new Subject<any>();
     const option = {
       key: environment.RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
       amount: paymentOption.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -35,6 +43,11 @@ export class PaymentService {
       order_id: paymentOption.razorpayOrderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
       handler: function (response: any) {
         console.log({
+          razorpayPaymentId: response.razorpay_payment_id,
+          razorpayOrderId: response.razorpay_order_id,
+          razorpayPaymentSignature: response.razorpay_signature,
+        });
+        subject.next({
           razorpayPaymentId: response.razorpay_payment_id,
           razorpayOrderId: response.razorpay_order_id,
           razorpayPaymentSignature: response.razorpay_signature,
@@ -55,7 +68,19 @@ export class PaymentService {
     };
 
     const pay = new Razorpay(option);
+    pay.on('payment.failed', function (response: any) {
+      alert(response.error.code);
+      alert(response.error.description);
+      alert(response.error.source);
+      alert(response.error.step);
+      alert(response.error.reason);
+      alert(response.error.metadata.order_id);
+      alert(response.error.metadata.payment_id);
+      subject.error(response.error);
+    });
 
     pay.open();
+
+    return subject;
   }
 }

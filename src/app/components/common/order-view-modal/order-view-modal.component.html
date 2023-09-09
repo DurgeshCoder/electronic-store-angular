@@ -47,7 +47,9 @@
             >
               <td>Order Status</td>
               <td>
-                {{ order.orderStatus }}
+                <div>
+                  {{ order.orderStatus }}
+                </div>
               </td>
             </tr>
 
@@ -59,7 +61,7 @@
             >
               <td>Payment Status</td>
               <td>
-                {{ order.paymentStatus }}
+                <div>{{ order.paymentStatus }}</div>
               </td>
             </tr>
             <tr>
@@ -163,6 +165,14 @@
         class="btn btn-outline-danger"
       >
         {{ updateState ? "View Detail" : "Update Order" }}
+      </button>
+      <button
+        (click)="payForOrder(order)"
+        *ngIf="order?.paymentStatus != paymentStatus.PAID"
+        type="button"
+        class="btn btn-success mx-2"
+      >
+        Pay Now
       </button>
       <button
         type="button"

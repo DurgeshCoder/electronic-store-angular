@@ -5,6 +5,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { Route, Router } from '@angular/router';
 
 import {
   ModalDismissReasons,
@@ -18,6 +19,7 @@ import { OrderStatus, PaymentStatus } from 'src/app/models/order.request.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { HelperService } from 'src/app/services/helper.service';
 import { OrderService } from 'src/app/services/order.service';
+import { PaymentService } from 'src/app/services/payment.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -40,7 +42,9 @@ export class OrderViewModalComponent implements OnInit, OnDestroy {
     public _product: ProductService,
     private _order: OrderService,
     private _toastr: ToastrService,
-    public _auth: AuthService
+    public _auth: AuthService,
+    private _payment: PaymentService,
+    private _router: Router
   ) {}
   // init
   ngOnInit(): void {
@@ -102,6 +106,58 @@ export class OrderViewModalComponent implements OnInit, OnDestroy {
         error: (error) => {
           console.log(error);
           this._toastr.error('Error in updating order'!!);
+        },
+      });
+    }
+  }
+
+  payForOrder(order: Order | undefined) {
+    if (order) {
+      // initiate payment
+      this._payment.initiatePayment(order.orderId).subscribe({
+        next: (data: any) => {
+          console.log(data);
+          const subscription = this._payment
+            .payWithRazorpay({
+              amount: data.amount,
+              razorpayOrderId: data.razorpayOrderId,
+              userName: order.user.name,
+              email: order.user.email,
+              contact: '+91875645',
+            })
+            .subscribe({
+              next: (data) => {
+                //success
+                console.log('from cart component');
+                console.log(data);
+                subscription.unsubscribe();
+                // server api call karni hai
+
+                this._payment
+                  .captureAndVarifyPayment(order.orderId, data)
+                  .subscribe({
+                    next: (data: any) => {
+                      console.log(data);
+                      this._toastr.success(data.message);
+                      this._router.navigate(['/']);
+                      this.modalService.dismissAll();
+                    },
+                    error: (error) => {
+                      console.log(error);
+                      this._toastr.error('Error in capturing payment !!');
+                    },
+                  });
+              },
+              error: (error) => {
+                // error
+                console.log('error from cart component');
+                console.log(error);
+                this._toastr.error(
+                  'error in doing payment, you can retry from orders section'
+                );
+                subscription.unsubscribe();
+              },
+            });
         },
       });
     }
