@@ -11,10 +11,8 @@ import { OrderService } from 'src/app/services/order.service';
 })
 export class ViewOrdersComponent implements OnInit {
   orderResponse?: OrderResponse;
-  orderStatus = OrderStatus;
-  paymentStatus = PaymentStatus;
 
-  constructor(private _order: OrderService,private _helper:HelperService) {}
+  constructor(private _order: OrderService, private _helper: HelperService) {}
   ngOnInit(): void {
     this._order.getAllOrders().subscribe({
       next: (value) => {
@@ -22,10 +20,5 @@ export class ViewOrdersComponent implements OnInit {
         console.log(this.orderResponse);
       },
     });
-  }
-
-  // open view order modal
-  openModal(order:Order){
-   this._helper.emitOrderEvent(order)
   }
 }

@@ -1,13 +1,23 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 
 import {
   ModalDismissReasons,
   NgbDatepickerModule,
   NgbModal,
 } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { Order } from 'src/app/models/order.model';
 import { OrderStatus, PaymentStatus } from 'src/app/models/order.request.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { HelperService } from 'src/app/services/helper.service';
+import { OrderService } from 'src/app/services/order.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -15,19 +25,28 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './order-view-modal.component.html',
   styleUrls: ['./order-view-modal.component.css'],
 })
-export class OrderViewModalComponent {
+export class OrderViewModalComponent implements OnInit, OnDestroy {
   order?: Order;
   @ViewChild('content') content?: ElementRef;
   public orderStatus = OrderStatus;
   public paymentStatus = PaymentStatus;
+  public modalSubscription?: Subscription;
+  updateState = false;
 
   closeResult: any;
   constructor(
     private modalService: NgbModal,
     private _helper: HelperService,
-    public _product: ProductService
-  ) {
-    this._helper.openOrderModalEmitter.subscribe({
+    public _product: ProductService,
+    private _order: OrderService,
+    private _toastr: ToastrService,
+    public _auth: AuthService
+  ) {}
+  // init
+  ngOnInit(): void {
+    console.log('Subscribing');
+
+    this.modalSubscription = this._helper.openOrderModalEmitter.subscribe({
       next: (order: Order) => {
         // alert("output from modal view")
         console.log(order);
@@ -35,6 +54,11 @@ export class OrderViewModalComponent {
         this.open(this.content);
       },
     });
+  }
+  ngOnDestroy(): void {
+    console.log('unsubcribing');
+
+    this.modalSubscription?.unsubscribe();
   }
 
   open(content: any) {
@@ -57,6 +81,29 @@ export class OrderViewModalComponent {
       return 'by clicking on a backdrop';
     } else {
       return `with: ${reason}`;
+    }
+  }
+
+  changeState() {
+    this.updateState = !this.updateState;
+  }
+
+  updateFormSubmitted(event: SubmitEvent) {
+    event.preventDefault();
+    console.log(this.order);
+    // call server api to save data
+    if (this.order) {
+      this._order.updateOrder(this.order).subscribe({
+        next: (order) => {
+          this.order = order;
+          this._toastr.success('Order Updated');
+          this.updateState = false;
+        },
+        error: (error) => {
+          console.log(error);
+          this._toastr.error('Error in updating order'!!);
+        },
+      });
     }
   }
 }

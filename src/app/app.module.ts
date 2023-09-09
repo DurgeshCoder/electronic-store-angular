@@ -44,6 +44,7 @@ import {
   IconMinus,
   IconHttpDelete,
   IconTrash,
+  IconTruckDelivery,
 } from 'angular-tabler-icons/icons';
 import { JwtInterceptor } from './services/JwtInterceptor';
 import { SingleCategoryViewComponent } from './components/common/single-category-view/single-category-view.component';
@@ -61,6 +62,9 @@ import { ViewProductComponent } from './components/pages/view-product/view-produ
 import { CartComponent } from './components/pages/cart/cart.component';
 import { CartItemComponent } from './components/common/cart-item/cart-item.component';
 import { OrderViewModalComponent } from './components/common/order-view-modal/order-view-modal.component';
+import { OrderHubComponent } from './components/common/order-hub/order-hub.component';
+import { MyOrdersComponent } from './components/pages/my-orders/my-orders.component';
+import { PaymentComponent } from './components/common/payment/payment.component';
 
 const icons = {
   IconCamera,
@@ -78,6 +82,7 @@ const icons = {
   IconMinus,
   IconHttpDelete,
   IconTrash,
+  IconTruckDelivery,
 };
 
 @NgModule({
@@ -109,7 +114,10 @@ const icons = {
     ViewProductComponent,
     CartComponent,
     CartItemComponent,
-    OrderViewModalComponent
+    OrderViewModalComponent,
+    OrderHubComponent,
+    MyOrdersComponent,
+    PaymentComponent,
   ],
   imports: [
     BrowserModule,

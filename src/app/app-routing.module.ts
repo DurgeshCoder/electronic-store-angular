@@ -22,6 +22,7 @@ import { StoreComponent } from './components/pages/store/store.component';
 import { StoreCategoriesComponent } from './components/pages/store-categories/store-categories.component';
 import { ViewProductComponent } from './components/pages/view-product/view-product.component';
 import { CartComponent } from './components/pages/cart/cart.component';
+import { MyOrdersComponent } from './components/pages/my-orders/my-orders.component';
 const routes: Routes = [
   {
     path: '',
@@ -86,6 +87,11 @@ const routes: Routes = [
   {
     path: 'profile',
     component: UserComponent,
+    canActivate: [normalUserGuard],
+  },
+  {
+    path: 'my/orders',
+    component: MyOrdersComponent,
     canActivate: [normalUserGuard],
   },
   {

@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  OnDestroy,
   OnInit,
   ViewChild,
   ViewChildren,
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { Cart, CartItem } from 'src/app/models/cart.model';
 import {
   OrderRequest,
@@ -20,6 +22,7 @@ import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { OrderService } from 'src/app/services/order.service';
+import { PaymentService } from 'src/app/services/payment.service';
 import { updateCart } from 'src/app/store/cart/cart.actions';
 
 @Component({
@@ -27,7 +30,7 @@ import { updateCart } from 'src/app/store/cart/cart.actions';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css'],
 })
-export class CartComponent {
+export class CartComponent implements OnDestroy {
   cart?: Cart;
   user?: User;
   @ViewChildren('billingName')
@@ -41,6 +44,7 @@ export class CartComponent {
     userId: '',
     cartId: '',
   };
+  private userSubscripiton?: Subscription;
 
   constructor(
     private _auth: AuthService,
@@ -49,9 +53,10 @@ export class CartComponent {
     private _router: Router,
     private _cartStore: Store<{ cart: Cart }>,
     private _model: NgbModal,
-    private _order: OrderService
+    private _order: OrderService,
+    private _payment: PaymentService
   ) {
-    this._auth.getLoggedInData().subscribe({
+    this.userSubscripiton = this._auth.getLoggedInData().subscribe({
       next: (userData) => {
         if (!userData.login) {
           this._toastr.error('Please login !!');
@@ -62,6 +67,9 @@ export class CartComponent {
         this.loadCart();
       },
     });
+  }
+  ngOnDestroy(): void {
+    this.userSubscripiton?.unsubscribe();
   }
 
   loadCart() {
@@ -201,7 +209,21 @@ export class CartComponent {
           positionClass: 'toast-bottom-center',
         });
         this._model.dismissAll();
+
         this.loadCart();
+        // initiate payment
+        this._payment.initiatePayment(order.orderId).subscribe({
+          next: (data: any) => {
+            console.log(data);
+            this._payment.payWithRazorpay({
+              amount: data.amount,
+              razorpayOrderId: data.razorpayOrderId,
+              userName: order.user.name,
+              email: order.user.email,
+              contact: '+917097896966',
+            });
+          },
+        });
       },
     });
     //

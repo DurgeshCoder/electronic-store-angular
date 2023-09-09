@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { OrderRequest } from '../models/order.request.model';
 import { environment } from 'src/environments/environment';
-import { OrderResponse } from '../models/order.model';
+import { Order, OrderResponse } from '../models/order.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ export class OrderService {
   constructor(private _http: HttpClient) {}
 
   createOrder(orderRequest: OrderRequest) {
-    return this._http.post(`${environment.apiUrl}/orders`, orderRequest);
+    return this._http.post<Order>(`${environment.apiUrl}/orders`, orderRequest);
   }
 
   getAllOrders(
@@ -26,6 +26,15 @@ export class OrderService {
   }
 
   getOrderOfUser(userId: string) {
-    return this._http.get(`${environment.apiUrl}/orders/users/${userId}`);
+    return this._http.get<Order[]>(
+      `${environment.apiUrl}/orders/users/${userId}`
+    );
+  }
+
+  updateOrder(order: Order) {
+    return this._http.put<Order>(
+      `${environment.apiUrl}/orders/${order.orderId}`,
+      order
+    );
   }
 }

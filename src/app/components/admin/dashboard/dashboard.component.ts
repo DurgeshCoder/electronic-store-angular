@@ -50,6 +50,12 @@ export class DashboardComponent {
       cssClass: '',
     },
     {
+      title: 'My Orders',
+      link: '/my/orders',
+      icon: 'truck-delivery',
+      cssClass: '',
+    },
+    {
       title: 'Logout',
       link: '#!',
       icon: 'logout-2',

@@ -8,4 +8,5 @@ export const environment = {
   ROLE_ADMIN_ID: 'awgfasfwsdqtgasfwqgsdtg',
   ROLE_ADMIN_NAME: 'ROLE_ADMIN',
   MAX_PAGE_SIZE: 99999999,
+  RAZORPAY_KEY: 'rzp_test_dwyGwgDOKPJHdz',
 };

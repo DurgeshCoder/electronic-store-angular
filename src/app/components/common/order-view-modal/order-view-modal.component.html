@@ -12,7 +12,7 @@
     <div class="container-fluid" *ngIf="order">
       <h4>Order by {{ order.user.name }}</h4>
 
-      <div class="responsive-table mt-4">
+      <div class="responsive-table mt-4" *ngIf="!updateState">
         <table class="table table-bordered">
           <tbody>
             <tr>
@@ -109,15 +109,68 @@
           </div>
         </div>
       </div>
+
+      <!-- update -->
+      <div *ngIf="updateState">
+        <form action="" (ngSubmit)="updateFormSubmitted($event)">
+          <!-- order status -->
+          <div class="mt-3">
+            <label for="order_status">Change Order Status</label>
+            <select
+              name="orderStatus"
+              [(ngModel)]="order.orderStatus"
+              class="form-control"
+              id=""
+            >
+              <option
+                [ngValue]="os.value"
+                *ngFor="let os of orderStatus | keyvalue"
+              >
+                {{ os.key }}
+              </option>
+            </select>
+          </div>
+          <!-- payment status -->
+          <div class="mt-3">
+            <label for="order_status">Change Payment Status</label>
+            <select
+              name="paymentStatus"
+              [(ngModel)]="order.paymentStatus"
+              class="form-control"
+              id=""
+            >
+              <option
+                [ngValue]="os.value"
+                *ngFor="let os of paymentStatus | keyvalue"
+              >
+                {{ os.key }}
+              </option>
+            </select>
+          </div>
+          <div class="container text-center">
+            <button type="submit" class="btn btn-success mt-3">Save</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
   <div class="modal-footer">
-    <button
-      type="button"
-      class="btn btn-outline-dark"
-      (click)="modal.close('Save click')"
-    >
-      Save
-    </button>
+    <div class="container text-center">
+      <button
+        *ngIf="_auth.checkLoginAndAdminUser() | async"
+        (click)="changeState()"
+        type="button"
+        class="btn btn-outline-danger"
+      >
+        {{ updateState ? "View Detail" : "Update Order" }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-dark mx-2"
+        (click)="modal.close('Save click')"
+      >
+        Close
+      </button>
+    </div>
   </div>
 </ng-template>
