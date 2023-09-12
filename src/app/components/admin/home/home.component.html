@@ -1,1 +1,21 @@
-<p>home works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Sale Report</h3>
+      <div>
+        <canvas
+          baseChart
+          [data]="lineChartData"
+          [options]="lineChartOptions"
+          [legend]="lineChartLegend"
+          [type]="'line'"
+          style="width: 100%"
+          (chartClick)="chartClick($event)"
+        ></canvas>
+        <button class="btn btn-primary" (click)="dynamicChange($event)">
+          Dynamic Click
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

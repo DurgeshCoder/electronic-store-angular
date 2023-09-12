@@ -71,6 +71,8 @@ import {
   GoogleLoginProvider,
   GoogleSigninButtonModule,
 } from '@abacritt/angularx-social-login';
+import { NgChartsModule } from 'ng2-charts';
+
 const icons = {
   IconCamera,
   IconHeart,
@@ -125,6 +127,7 @@ const icons = {
     PaymentComponent,
   ],
   imports: [
+    NgChartsModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
