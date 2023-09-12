@@ -7,6 +7,9 @@ import { CartService } from './services/cart.service';
 import { Cart } from './models/cart.model';
 import { User } from './models/user.model';
 import { updateCart } from './store/cart/cart.actions';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { Router } from '@angular/router';
+import { setLoginData } from './store/auth/auth.actions';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,7 +23,9 @@ export class AppComponent {
     private store: Store<{ auth: LoginResponse }>,
     private authService: AuthService,
     private cartService: CartService,
-    private cartStore: Store<{ cart: Cart }>
+    private socialAuth: SocialAuthService,
+    private cartStore: Store<{ cart: Cart }>,
+    private router: Router
   ) {
     this.store.select('auth').subscribe({
       next: (loginData) => {
@@ -38,6 +43,26 @@ export class AppComponent {
         },
       });
     }
+
+    this.socialAuth.authState.subscribe({
+      next: (user) => {
+        console.log(user);
+        this.authService.signInWithGoogle(user).subscribe({
+          next: (data: LoginResponse) => {
+            console.log(data);
+            this.store.dispatch(setLoginData(data));
+            this.router.navigate(['/user']);
+          },
+          error: (error) => {
+            this.toastr.error('Error in login from backend !!');
+            console.log(error);
+          },
+        });
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
   showToast() {
     this.toastr.error('Angular Ecommerce', 'This is success message', {

@@ -65,7 +65,12 @@ import { OrderViewModalComponent } from './components/common/order-view-modal/or
 import { OrderHubComponent } from './components/common/order-hub/order-hub.component';
 import { MyOrdersComponent } from './components/pages/my-orders/my-orders.component';
 import { PaymentComponent } from './components/common/payment/payment.component';
-
+import {
+  SocialLoginModule,
+  SocialAuthServiceConfig,
+  GoogleLoginProvider,
+  GoogleSigninButtonModule,
+} from '@abacritt/angularx-social-login';
 const icons = {
   IconCamera,
   IconHeart,
@@ -143,12 +148,31 @@ const icons = {
     }),
     SweetAlert2Module.forRoot({}),
     InfiniteScrollModule,
+    SocialLoginModule,
+    GoogleSigninButtonModule,
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi: true,
+    },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '554992520194-jbve4aad0pfobje8i8nvhqrmr0213sr5.apps.googleusercontent.com'
+            ),
+          },
+        ],
+        onError: (err) => {
+          console.error(err);
+        },
+      } as SocialAuthServiceConfig,
     },
   ],
   bootstrap: [AppComponent],
