@@ -1,6 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
-import { ChartConfiguration, ChartOptions, ChartType } from 'chart.js';
+import {
+  ChartConfiguration,
+  ChartData,
+  ChartOptions,
+  ChartType,
+} from 'chart.js';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -36,6 +41,30 @@ export class HomeComponent {
   public lineChartLegend = true;
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
+
+  // bar chart configurations
+  public barChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    // We use these empty structures as placeholders for dynamic theming.
+    scales: {
+      x: {},
+      y: {
+        min: 0,
+      },
+    },
+  };
+  public barChartType: ChartType = 'bar';
+
+  public barChartData: ChartData<'bar'> = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+    datasets: [
+      {
+        data: [65, 59, 80, 81, 56, 55, 40],
+        label: 'Users',
+      },
+      { data: [28, 48, 40, 19, 86, 27, 90], label: 'Sale' },
+    ],
+  };
 
   chartClick(event: any) {
     console.log(event);

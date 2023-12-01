@@ -72,6 +72,12 @@ import {
   GoogleSigninButtonModule,
 } from '@abacritt/angularx-social-login';
 import { NgChartsModule } from 'ng2-charts';
+import {
+  NgxUiLoaderHttpModule,
+  NgxUiLoaderModule,
+  NgxUiLoaderRouterModule,
+} from 'ngx-ui-loader';
+import { JWT_OPTIONS, JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 
 const icons = {
   IconCamera,
@@ -153,6 +159,16 @@ const icons = {
     InfiniteScrollModule,
     SocialLoginModule,
     GoogleSigninButtonModule,
+    NgxUiLoaderModule.forRoot({
+      fgsType: 'three-bounce',
+      pbThickness: 6,
+      text: 'Loading...',
+      overlayColor: 'rgba(0,0,0,.8)',
+      bgsType: 'double-bounce',
+      bgsPosition: 'center-center',
+    }),
+    NgxUiLoaderRouterModule,
+    NgxUiLoaderHttpModule.forRoot({}),
   ],
   providers: [
     {

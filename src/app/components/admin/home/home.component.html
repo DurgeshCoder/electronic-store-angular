@@ -1,20 +1,43 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <h3>Sale Report</h3>
-      <div>
-        <canvas
-          baseChart
-          [data]="lineChartData"
-          [options]="lineChartOptions"
-          [legend]="lineChartLegend"
-          [type]="'line'"
-          style="width: 100%"
-          (chartClick)="chartClick($event)"
-        ></canvas>
-        <button class="btn btn-primary" (click)="dynamicChange($event)">
+  <div class="row mt-5">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h3>Sale Report</h3>
+          <div>
+            <canvas
+              baseChart
+              [data]="lineChartData"
+              [options]="lineChartOptions"
+              [legend]="lineChartLegend"
+              [type]="'line'"
+              style="width: 100%"
+              (chartClick)="chartClick($event)"
+            ></canvas>
+            <!-- <button class="btn btn-primary" (click)="dynamicChange($event)">
+            Dynamic Click
+          </button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h3>User Report</h3>
+          <div>
+            <canvas
+              baseChart
+              [data]="barChartData"
+              [options]="barChartOptions"
+              [type]="'bar'"
+              style="width: 100%"
+            ></canvas>
+            <!-- <button class="btn btn-primary" (click)="dynamicChange($event)">
           Dynamic Click
-        </button>
+        </button> -->
+          </div>
+        </div>
       </div>
     </div>
   </div>
